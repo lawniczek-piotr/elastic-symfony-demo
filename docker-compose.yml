@@ -4,6 +4,7 @@ services:
 
   elasticsearch:
     image:  elasticsearch:6.6.1
+    container_name: elastic-symfony-demo_elasticsearch
     environment:
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     ports:
@@ -11,6 +12,7 @@ services:
 
   kibana:
     image: docker.elastic.co/kibana/kibana:6.6.1
+    container_name: elastic-symfony-demo_kibana
     volumes:
       - ./docker/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml
     ports:
@@ -20,7 +22,7 @@ services:
 
   web:
     image:  nginx:alpine
-    container_name: elastic-symfony-demo-web
+    container_name: elastic-symfony-demo_web
     volumes:  
       - ./app:/app
       - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
@@ -31,6 +33,7 @@ services:
   
   php-fpm:
     build: docker/php
+    container_name: elastic-symfony-demo_php-fpm
     working_dir: /app
     volumes:
       - ./app:/app
